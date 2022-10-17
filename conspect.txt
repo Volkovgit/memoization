@@ -20,3 +20,7 @@ TDD : суть заключается в написании модульных �
 
 
 
+
+
+Data types and data structures:
+    Reference type : function,objects,array
