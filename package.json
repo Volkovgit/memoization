@@ -1,0 +1,25 @@
+{
+  "name": "task1_memoization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "train_memo.js",
+  "scripts": {
+    "test": "mocha",
+    "prettier": "prettier --write src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Volkovgit/task1_memoization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Volkovgit/task1_memoization/issues"
+  },
+  "homepage": "https://github.com/Volkovgit/task1_memoization#readme",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.1.0",
+    "prettier": "^2.7.1"
+  }
+}
