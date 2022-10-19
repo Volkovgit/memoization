@@ -1,12 +1,14 @@
-module.exports = (fn) => {
+module.exports = (func) => {
   const cache = {};
+  if (typeof func != 'function') return undefined;
   return (...args) => {
-    let arg = args[0];
-    if (arg in cache) {
-      return cache[arg];
+    if (args.length == 0) return null;
+    let key = args[0];
+    if (key in cache) {
+      return cache[key];
     } else {
-      let countResult = fn(arg);
-      cache[arg] = countResult;
+      let countResult = func.apply(this, args);
+      cache[key] = countResult;
       return countResult;
     }
   };
