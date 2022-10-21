@@ -20,20 +20,32 @@ describe('Memoize', function () {
   });
 
   describe('Cashed function', () => {
+    /**
+     * Функция возращает число увеличенное на 10
+     * @return {number}
+     * @param {number} x
+     */
     function addTen(x) {
       return x + 10;
     }
 
+    /**
+     * Считает сумму переданных элементов
+     * @return {any}
+     * @param {any} args
+     */
     function summElements(...args) {
       const result = args.reduce((sum, el) => sum + el);
       return result;
     }
 
-    function welcomeUserFromContext(){
+    /**
+     * Приветствие пользователя с получением имени из контекста
+     * @return {string}
+     */
+    function welcomeUserFromContext() {
       return this.hi();
     }
-
-
 
     let addTenSpy;
     let memoizedSummElements;
@@ -50,7 +62,6 @@ describe('Memoize', function () {
       spyWelcomeUserFromContext = sinon.spy(welcomeUserFromContext);
       memoizedWelcomeUserFromContext = memoize(spyWelcomeUserFromContext);
     });
-
 
     it('Is not equal to the original function', () => {
       expect(memoize(addTen)).to.be.a('function').and.to.not.equal(addTen);
@@ -98,10 +109,12 @@ describe('Memoize', function () {
       sinon.assert.notCalled(addTenSpy);
     });
 
-    it('Should return value from this',() => {
+    it('Should return value from this', () => {
       const referenceObject = {
         name: 'John',
-        hi() { return 'Hi '+this.name; }
+        hi() {
+          return 'Hi ' + this.name;
+        },
       };
       expect(memoizedWelcomeUserFromContext(referenceObject)).to.equal('Hi John');
       expect(memoizedWelcomeUserFromContext(referenceObject)).to.equal('Hi John');
