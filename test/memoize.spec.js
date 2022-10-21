@@ -29,22 +29,28 @@ describe('Memoize', function () {
       return result;
     }
 
-    function objectValues(obj){
-      return obj.values()
+    function returnNameFromThis(){
+      return this.name;
     }
 
+
+
+    let addTenSpy;
     let memoizedSummElements;
     let memoizedAddTen;
+    let summElementsSpy;
+    let spyReturnNameFromThis;
+    let memoizedReturnNameFromThis;
+
     beforeEach(() => {
       addTenSpy = sinon.spy(addTen);
       memoizedAddTen = memoize(addTenSpy);
       summElementsSpy = sinon.spy(summElements);
       memoizedSummElements = memoize(summElementsSpy);
+      spyReturnNameFromThis = sinon.spy(returnNameFromThis);
+      memoizedReturnNameFromThis = memoize(spyReturnNameFromThis);
     });
 
-    describe('Value-type data structure',() => {
-      
-    })
 
     it('Is not equal to the original function', () => {
       expect(memoize(addTen)).to.be.a('function').and.to.not.equal(addTen);
@@ -92,7 +98,13 @@ describe('Memoize', function () {
       sinon.assert.notCalled(addTenSpy);
     });
 
-
-
+    it('Should return value from object this',() => {
+      const referenceObject = {
+        name: 'John',
+        hi() { return this.name; }
+      };
+      expect(memoizedReturnNameFromThis(referenceObject)).to.equal('John');
+      sinon.assert.calledOnce(spyReturnNameFromThis);
+    });
   });
 });

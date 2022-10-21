@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Volkovgit/task1_memoization#readme",
   "devDependencies": {
     "chai": "^4.3.6",
+    "eslint": "^8.25.0",
     "mocha": "^10.1.0",
     "prettier": "^2.7.1",
     "sinon": "^14.0.1"

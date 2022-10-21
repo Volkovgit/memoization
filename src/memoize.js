@@ -7,7 +7,8 @@ module.exports = (func) => {
     if (key in cache) {
       return cache[key];
     } else {
-      let countResult = func.apply(this, args);
+      if (args.length == 1 && typeof args[0] == 'object') args = args[0];
+      let countResult = func.apply(args, args);
       cache[key] = countResult;
       return countResult;
     }
