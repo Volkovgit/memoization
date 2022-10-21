@@ -29,8 +29,8 @@ describe('Memoize', function () {
       return result;
     }
 
-    function returnNameFromThis(){
-      return this.name;
+    function welcomeUserFromContext(){
+      return this.hi();
     }
 
 
@@ -39,16 +39,16 @@ describe('Memoize', function () {
     let memoizedSummElements;
     let memoizedAddTen;
     let summElementsSpy;
-    let spyReturnNameFromThis;
-    let memoizedReturnNameFromThis;
+    let spyWelcomeUserFromContext;
+    let memoizedWelcomeUserFromContext;
 
     beforeEach(() => {
       addTenSpy = sinon.spy(addTen);
       memoizedAddTen = memoize(addTenSpy);
       summElementsSpy = sinon.spy(summElements);
       memoizedSummElements = memoize(summElementsSpy);
-      spyReturnNameFromThis = sinon.spy(returnNameFromThis);
-      memoizedReturnNameFromThis = memoize(spyReturnNameFromThis);
+      spyWelcomeUserFromContext = sinon.spy(welcomeUserFromContext);
+      memoizedWelcomeUserFromContext = memoize(spyWelcomeUserFromContext);
     });
 
 
@@ -98,13 +98,14 @@ describe('Memoize', function () {
       sinon.assert.notCalled(addTenSpy);
     });
 
-    it('Should return value from object this',() => {
+    it('Should return value from this',() => {
       const referenceObject = {
         name: 'John',
-        hi() { return this.name; }
+        hi() { return 'Hi '+this.name; }
       };
-      expect(memoizedReturnNameFromThis(referenceObject)).to.equal('John');
-      sinon.assert.calledOnce(spyReturnNameFromThis);
+      expect(memoizedWelcomeUserFromContext(referenceObject)).to.equal('Hi John');
+      expect(memoizedWelcomeUserFromContext(referenceObject)).to.equal('Hi John');
+      sinon.assert.calledOnce(spyWelcomeUserFromContext);
     });
   });
 });
